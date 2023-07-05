@@ -25,8 +25,7 @@ git clone https://github.com/Issa-N/torch_tutorial_y-i-3.git
 ```
 次に，Dockerで仮想環境を作る．
 ```
-cd torch_tutorial_y-i-3
-cd docker
+cd torch_tutorial_y-i-3/docker
 
 bash build.sh
 bash run.sh
@@ -36,6 +35,6 @@ bash run.sh
 ```
 docker exec -it torch_tutorial_y-i　bash
 ```
-抜ける時は 「controll + P + Q」
+一時的に抜ける時は 「controll + P + Q」
 
 
