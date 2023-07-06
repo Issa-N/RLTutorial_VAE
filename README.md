@@ -22,9 +22,12 @@ The administers are YANO and NAKAMURA.
 ```
  ssh -L 63322:localhost:63322 -L 6006:localhost:6006 -L 6007:localhost:6007  <username>@<remotePC IP>
 ```
+接続完了後， 環境構築へ
+## nativeの場合
+環境構築へ
 ## 環境設定
 ### 初回
-初めに，githubからリポジトリのクローンを作成する．
+任意のディレクトリにて， githubからリポジトリのクローンを作成する．
 ```
 git clone https://github.com/Issa-N/torch_tutorial_y-i-3.git
 ```
