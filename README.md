@@ -20,7 +20,7 @@ The administers are YANO and NAKAMURA.
 # Quick Start
 ## SSH接続(SSH接続でリモートPCを経由する場合のみlocal terminalにて実行が必要)
 ```
- ssh -L 63322:localhost:63322 -L 6006:localhost:6006 -L 6007:localhost:6007  <username>@<remote IP>
+ ssh -L 63322:localhost:63322 -L 6006:localhost:6006 -L 6007:localhost:6007  <username>@<remotePC IP>
 ```
 ## 環境設定
 ### 初回
