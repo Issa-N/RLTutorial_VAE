@@ -1,3 +1,3 @@
-docker build ./ -t torch_tutorial_y-i-2
+docker build ./ -t torch_tutorial_y-i-3
 
 
