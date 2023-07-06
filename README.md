@@ -33,6 +33,7 @@ git clone https://github.com/Issa-N/torch_tutorial_y-i-3.git
 cd torch_tutorial_y-i-3/docker
 
 bash build.sh
+bash run.sh
 ```
 ### 2回目以降
 以下のコマンドで，dockerのコンテナへの接続を行う．
