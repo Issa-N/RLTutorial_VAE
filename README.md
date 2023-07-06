@@ -42,7 +42,7 @@ docker exec -it torch_tutorial_y-i　bash
 ```
 一時的に抜ける時は 「controll + P + Q」
 
-##Jupiter notebookを開く時
+## Jupiter notebookを開く時
 ```
 jupyter-notebook --ip 0.0.0.0 --port 63322 --allow-root
 ```
