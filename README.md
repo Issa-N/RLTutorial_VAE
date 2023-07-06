@@ -16,7 +16,12 @@ The administers are YANO and NAKAMURA.
 6. 潜在空間を可視化する．
 7. AEとVAEの潜在空間を比較し，考察する．
 
+
 # Quick Start
+## SSH接続(SSH接続でリモートPCを経由する場合のみlocal terminalにて実行が必要)
+```
+ ssh -L 63322:localhost:63322 -L 6006:localhost:6006 -L 6007:localhost:6007  <username>@<remote IP>
+```
 ## 環境設定
 ### 初回
 初めに，githubからリポジトリのクローンを作成する．
@@ -28,7 +33,6 @@ git clone https://github.com/Issa-N/torch_tutorial_y-i-3.git
 cd torch_tutorial_y-i-3/docker
 
 bash build.sh
-bash run.sh
 ```
 ### 2回目以降
 以下のコマンドで，dockerのコンテナへの接続を行う．
@@ -36,5 +40,10 @@ bash run.sh
 docker exec -it torch_tutorial_y-i　bash
 ```
 一時的に抜ける時は 「controll + P + Q」
+
+##Jupiter notebookを開く時
+```
+jupyter-notebook --ip 0.0.0.0 --port 63322 --allow-root
+```
 
 
