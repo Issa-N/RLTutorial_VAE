@@ -1,4 +1,4 @@
-# torch_tutorial_y_-3
+# torch_tutorial_y_i-3
 The repository for M1 tutorial. 
 
 The administers are YANO and NAKAMURA. 
