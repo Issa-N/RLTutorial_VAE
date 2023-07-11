@@ -20,10 +20,11 @@ RUN apt-get update && \
 RUN pip install notebook \
 		matplotlib \
 		numpy \
+		pandas \
 		scipy \
  		gym \ 
 		tensorboard \
-		ipdb
+		ipdb 
 
 
 RUN mkdir src
