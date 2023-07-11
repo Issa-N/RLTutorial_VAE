@@ -14,35 +14,35 @@ import matplotlib.pyplot as plt
 class Encoder_AE(nn.Module):
   def __init__(self, z_dim):
     super().__init__()
-    self.lr = nn.Linear(28*28, 300)#結合層(入力画像⇒300次元配列)
-    self.lr2 = nn.Linear(300, 100)#結合層(300次元配列⇒100次元配列)
-    self.lr3 = nn.Linear(100, z_dim)#結合層(100次元配列⇒2次元配列)
-    self.relu = nn.ReLU()#活性化関数の層
+    self.lr = nn.Linear(28*28, 300)#convolution layer(input image -> 300array)
+    self.lr2 = nn.Linear(300, 100)#convolution layer(300 -> 100array)
+    self.lr3 = nn.Linear(100, z_dim)#convolution layer(100 -> 2array)
+    self.relu = nn.ReLU()#active function layer
 
   def forward(self, x):
-    x = self.lr(x)#画像⇒300次元配列
-    x = self.relu(x)#ReLu関数で活性化
-    x = self.lr2(x)#300次元配列⇒100次元配列
-    x = self.relu(x)#ReLu関数で活性化
-    z = self.lr3(x)#100次元配列⇒潜在変数
+    x = self.lr(x)#input image -> 300array
+    x = self.relu(x)#ReLu
+    x = self.lr2(x)#300 -> 100array
+    x = self.relu(x)#ReLu
+    z = self.lr3(x)#100 -> 2array
 
     return z
 
 class Decoder_AE(nn.Module):
   def __init__(self, z_dim):
     super().__init__()
-    self.lr = nn.Linear(z_dim, 100)#結合層(潜在変数⇒100次元配列)
-    self.lr2 = nn.Linear(100, 300)#結合層(100次元配列⇒300次元配列)
-    self.lr3 = nn.Linear(300, 28*28)#結合層(300次元配列⇒復元画像)
-    self.relu = nn.ReLU()#活性化関数の層
+    self.lr = nn.Linear(z_dim, 100)#convolution layer(2 -> 100array)
+    self.lr2 = nn.Linear(100, 300)#convolution layer(100 -> 300array)
+    self.lr3 = nn.Linear(300, 28*28)#convolution layer(300array -> Output image)
+    self.relu = nn.ReLU()#actuve function
 
   def forward(self, z):
-    x = self.lr(z)#潜在変数⇒100次元配列
-    x = self.relu(x)#ReLu関数で活性化
-    x = self.lr2(x)#100次元配列⇒300次元配列
-    x = self.relu(x)#ReLu関数で活性化
-    x = self.lr3(x)#300次元配列⇒復元画像
-    x = torch.sigmoid(x)   #MNISTのピクセル値の分布はベルヌーイ分布に近いと考えられるので、シグモイド関数を適用します。
+    x = self.lr(z)#latent variable -> 100array
+    x = self.relu(x)#ReLu
+    x = self.lr2(x)#100->300array
+    x = self.relu(x)#ReLu
+    x = self.lr3(x)#300->output image
+    x = torch.sigmoid(x)   #sigmoid
     return x
 
 class AE(nn.Module):
@@ -50,9 +50,9 @@ class AE(nn.Module):
     """
     #################################################################
     Variables:
-      -x_in: 入力画像
-      -x_out: 入力画像
-      -z: 潜在変数
+      -x_in: input image
+      -x_out: output image
+      -z: latent variable
     #################################################################
     """
     super().__init__()
@@ -60,11 +60,11 @@ class AE(nn.Module):
     self.decoder = Decoder_AE(z_dim)
 
   def forward(self, x_in):
-    z = self.encoder(x_in)#エンコーダ
-    x_out = self.decoder(z)#デコーダ
+    z = self.encoder(x_in)#encoder
+    x_out = self.decoder(z)#decoder
     return x_out, z
 
-# 損失関数
+# Loss function
 def criterion_AE(predict, target):
   """
   #################################################################
@@ -73,6 +73,6 @@ def criterion_AE(predict, target):
     -predict:
   #################################################################
   """
-  # 潜在ロス： クロスエントロピー
+  # Cross entropy
   loss = F.binary_cross_entropy(predict, target, reduction='sum')
   return loss

@@ -14,45 +14,45 @@ from VAE import Encoder_VAE, Decoder_VAE, VAE
 from VAE import criterion_VAE as criterion
 
 def Learning_VAE(z_dim, num_epochs, train_loader,val_loader):
-  device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")# 使用するデバイス
-  model = VAE(z_dim).to(device)#　学習モデル_AE
-  optimizer = torch.optim.Adam(model.parameters(), lr=0.001)#　最適化関数
-  scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=[15], gamma=0.1)#スケジューラ
+  device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")# specify device
+  model = VAE(z_dim).to(device)#Learning model_AE
+  optimizer = torch.optim.Adam(model.parameters(), lr=0.001)#optimazation function
+  scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=[15], gamma=0.1)#scheduler
   
-  history_VAE = {"train_loss": [], "val_loss": [], "ave": [], "log_dev": [], "z": [], "labels":[]}#学習結果保存用の配列
+  history_VAE = {"train_loss": [], "val_loss": [], "ave": [], "log_dev": [], "z": [], "labels":[]}#array saved learning result
   
   for epoch in range(num_epochs):
-    #訓練データの学習
-    model.train()#モデルの選択
+    #Train data
+    model.train()#select model
     for i, (x, labels) in enumerate(train_loader):
       input = x.to(device).view(-1, 28*28).to(torch.float32)
       output, z, ave, log_dev = model(input)
-      #学習結果を保存
+      #save result
       history_VAE["ave"].append(ave)
       history_VAE["log_dev"].append(log_dev)
       history_VAE["z"].append(z)
       history_VAE["labels"].append(labels)
       loss = criterion(output, input, ave, log_dev)
-      #最適化
+      #optimazation
       optimizer.zero_grad()
       loss.backward()
       optimizer.step()
-      #途中過程の出力
+      #output halfway progress
       #if (i+1) % 50 == 0:
         #print(f'Epoch: {epoch+1}, loss: {loss: 0.4f}')
-        #損失関数の結果を保存
+        #save train loss
       history_VAE["train_loss"].append(loss)
     
-    ##テストデータの学習
-    model.eval()#モデルの選択
-    with torch.no_grad():#メモリ削減のおまじない
+    ##learning test data
+    model.eval()#select model
+    with torch.no_grad():#Memory reduction spell
       for i, (x, labels) in enumerate(val_loader):
         input = x.to(device).view(-1, 28*28).to(torch.float32)
         output, z, ave, log_dev = model(input)
-        #損失関数および結果の保存
+        #save result
         loss = criterion(output, input, ave, log_dev)
         history_VAE["val_loss"].append(loss)
-      #途中過程の出力
+      #output halfway progress
       print(f'Epoch: {epoch+1}, val_loss: {loss: 0.4f}')
     
   scheduler.step()

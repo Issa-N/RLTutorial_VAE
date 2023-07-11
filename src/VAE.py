@@ -14,39 +14,39 @@ import matplotlib.pyplot as plt
 class Encoder_VAE(nn.Module):
   def __init__(self, z_dim):
     super().__init__()
-    self.lr = nn.Linear(28*28, 300)#結合層(1層目)
-    self.lr2 = nn.Linear(300, 100)#結合層(2層目)
-    self.lr_ave = nn.Linear(100, z_dim)#平均値を求める層
-    self.lr_dev = nn.Linear(100, z_dim)#分散を求める層
-    self.relu = nn.ReLU()#活性化関数の層
+    self.lr = nn.Linear(28*28, 300)#convolution layer(input image -> 300array)
+    self.lr2 = nn.Linear(300, 100)#convolution layer(300 -> 100array)
+    self.lr_ave = nn.Linear(100, z_dim)#mean
+    self.lr_dev = nn.Linear(100, z_dim)#varient
+    self.relu = nn.ReLU()#active function
 
   def forward(self, x):
-    x = self.lr(x)#画像⇒300次元配列
-    x = self.relu(x)#ReLu関数で活性化
-    x = self.lr2(x)#300次元配列⇒100次元配列
-    x = self.relu(x)#ReLu関数で活性化
-    ave = self.lr_ave(x)#100次元配列⇒平均
-    log_dev = self.lr_dev(x)#100次元配列⇒分散
+    x = self.lr(x)#input image -> 300array
+    x = self.relu(x)#ReLu
+    x = self.lr2(x)#300->100arrat
+    x = self.relu(x)#ReLu
+    ave = self.lr_ave(x)#100array->mean(2D)
+    log_dev = self.lr_dev(x)#100array->varient(2D)
 
-    ep = torch.randn_like(ave)   #平均0分散1の正規分布に従い生成されるz_dim次元の乱数
-    z = ave + torch.exp(log_dev / 2) * ep   #再パラメータ化トリック
+    ep = torch.randn_like(ave)   #normal distribution(mu_0, sigma=1)
+    z = ave + torch.exp(log_dev / 2) * ep   #latent varient
     return z, ave, log_dev
 
 class Decoder_VAE(nn.Module):
   def __init__(self, z_dim):
     super().__init__()
-    self.lr = nn.Linear(z_dim, 100)#結合層(潜在変数⇒100次元配列)
-    self.lr2 = nn.Linear(100, 300)#結合層(300次元配列⇒100次元配列)
-    self.lr3 = nn.Linear(300, 28*28)#結合層(300次元配列⇒復元画像)
-    self.relu = nn.ReLU()#活性化関数の層
+    self.lr = nn.Linear(z_dim, 100)#convolution layer(latent variable -> 100array)
+    self.lr2 = nn.Linear(100, 300)#convolution layer(100 -> 300array)
+    self.lr3 = nn.Linear(300, 28*28)#convolution layer(300array -> output image)
+    self.relu = nn.ReLU()#active function
 
   def forward(self, z):
-    x = self.lr(z)#潜在変数⇒100次元配列
-    x = self.relu(x)#ReLu関数で活性化
-    x = self.lr2(x)#100次元配列⇒300次元配列
-    x = self.relu(x)#ReLu関数で活性化
-    x = self.lr3(x)#300次元配列⇒復元画像
-    x = torch.sigmoid(x)   #MNISTのピクセル値の分布はベルヌーイ分布に近いと考えられるので、シグモイド関数を適用します。
+    x = self.lr(z)#latent variable->100array
+    x = self.relu(x)#ReLu
+    x = self.lr2(x)#100->300array
+    x = self.relu(x)#ReLu
+    x = self.lr3(x)#300array->output image
+    x = torch.sigmoid(x)   #sigmoid
     return x
 
 class VAE(nn.Module):
@@ -77,14 +77,14 @@ def criterion_VAE(predict, target, ave, log_dev):
   Variables:
     -target:
     -predict:
-    -ave: 平均値
-    -log_dev: 分散(対数値)
+    -ave: mean
+    -log_dev: varient(log value)
   #################################################################
   """
-  # 潜在ロス： クロスエントロピー
+  # potential loss; Cross entropy
   bce_loss = F.binary_cross_entropy(predict, target, reduction='sum')
-  # 再構築ロス（BCE誤差の平均値）：E(w)=-1/NΣN(tlog(x)+(1-t)log(1-x))
+  # Reconstruct loss; (Average of BCE loss): E(w)=-1/N Sigma N(tlog(x)+(1-t)log(1-x))
   kl_loss = -0.5 * torch.sum(1 + log_dev - ave**2 - log_dev.exp())
-  # 再構成ロス + 潜在ロス
+  # reconstruction loss + potential loss
   loss = bce_loss + kl_loss
   return loss
