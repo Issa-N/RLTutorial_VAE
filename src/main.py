@@ -60,7 +60,7 @@ array_number = args_cli.array_number
 
 #Learning network
 print("\n<Start to learn by AE>")
-history_AE=Learning_AE(z_dim, num_epochs, train_loader,val_loader)
+history_AE=Learning_AE(z_dim, num_epochs, train_loader,val_loader, input_size, array_number)
 print("\n<Start to learn by VAE>")
 history_VAE=Learning_VAE(z_dim, num_epochs, train_loader,val_loader, input_size, array_number)
 #save learning result

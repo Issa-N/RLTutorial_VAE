@@ -13,10 +13,10 @@ import matplotlib.pyplot as plt
 from AE import Encoder_AE, Decoder_AE, AE
 from AE import criterion_AE as criterion
 
-def Learning_AE(z_dim, num_epochs, train_loader,val_loader):
+def Learning_AE(z_dim, num_epochs, train_loader,val_loader, input_size, array_number):
   #setting lerning enviroment
   device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")# select device
-  model = AE(z_dim).to(device)#learning model_AE
+  model = AE(z_dim, input_size, array_number).to(device)#learning model_AE
   optimizer = torch.optim.Adam(model.parameters(), lr=0.001)#optimazation function
   scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=[15], gamma=0.1)#scheduler
   
