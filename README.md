@@ -52,8 +52,8 @@ cd
 jupyter-notebook --ip 0.0.0.0 --port 63322 --allow-root
 ```
 
-
-# notebookデータについて
+# 課題ファイルの実行について
+## notebookデータについて
 本課題において一連のVAE, AEの構築及び評価に関しては ~/src/run_AE_VAE.ipynb にて作業を行なった. 
 
 まず[Jupiter notebookを開く時]に記載済みのコマンドを実行し, jupyter notebookが起動することを確認する. 
@@ -62,7 +62,7 @@ jupyter-notebook --ip 0.0.0.0 --port 63322 --allow-root
 
 詳細については当notebookを参照されたい. 
 
-# ハイパラメータ指定
+## ハイパラメータ指定
 
 NNを組んだ後にネットワーク構造を変更し, その挙動を確認したいという場面は往々にして起こりうる事象であるため, プログラム自体も
 
