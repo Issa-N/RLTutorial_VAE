@@ -62,7 +62,7 @@ array_number = args_cli.array_number
 print("\n<Start to learn by AE>")
 history_AE=Learning_AE(z_dim, num_epochs, train_loader,val_loader)
 print("\n<Start to learn by VAE>")
-history_VAE=Learning_VAE(z_dim, num_epochs, train_loader,val_loader, input_size, array_number)
+history_VAE=Learning_VAE(z_dim, num_epochs, train_loader,val_loader)
 #save learning result
 with open('history_AE.pkl', 'wb') as f:
 	pickle.dump(history_AE, f)
