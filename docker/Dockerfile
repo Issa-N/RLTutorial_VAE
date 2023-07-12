@@ -27,4 +27,3 @@ RUN pip install notebook \
 		ipdb 
 
 
-RUN mkdir src

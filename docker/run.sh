@@ -13,5 +13,8 @@ docker run \
  -p 6006:6006 \
  -p 6007:6007 \
  -it --name "torch_tutorial_y-i-3" torch_tutorial_y-i-3 \
+<<<<<<< HEAD
 
+=======
+>>>>>>> aed26f9f2a10c1a434d0001e748b7cf71e2be8da
 
