@@ -12,12 +12,12 @@ import pandas as pd
 import matplotlib.pyplot as plt	
 
 class Encoder_VAE(nn.Module):
-  def __init__(self, z_dim):
+  def __init__(self, z_dim, input_size, array_number):
     super().__init__()
-    self.lr = nn.Linear(28*28, 300)#convolution layer(input image -> 300array)
-    self.lr2 = nn.Linear(300, 100)#convolution layer(300 -> 100array)
-    self.lr_ave = nn.Linear(100, z_dim)#mean
-    self.lr_dev = nn.Linear(100, z_dim)#varient
+    self.lr = nn.Linear(input_size*input_size, array_number[0])#convolution layer(input image -> 300array)
+    self.lr2 = nn.Linear(array_number[0], array_number[-1])#convolution layer(300 -> 100array)
+    self.lr_ave = nn.Linear(array_number[-1], z_dim)#mean
+    self.lr_dev = nn.Linear(array_number[-1], z_dim)#varient
     self.relu = nn.ReLU()#active function
 
   def forward(self, x):
@@ -33,11 +33,11 @@ class Encoder_VAE(nn.Module):
     return z, ave, log_dev
 
 class Decoder_VAE(nn.Module):
-  def __init__(self, z_dim):
+  def __init__(self, z_dim, input_size, array_number):
     super().__init__()
-    self.lr = nn.Linear(z_dim, 100)#convolution layer(latent variable -> 100array)
-    self.lr2 = nn.Linear(100, 300)#convolution layer(100 -> 300array)
-    self.lr3 = nn.Linear(300, 28*28)#convolution layer(300array -> output image)
+    self.lr = nn.Linear(z_dim, array_number[-1])#convolution layer(latent variable -> 100array)
+    self.lr2 = nn.Linear(array_number[-1], array_number[0])#convolution layer(100 -> 300array)
+    self.lr3 = nn.Linear(array_number[0], input_size*input_size)#convolution layer(300array -> output image)
     self.relu = nn.ReLU()#active function
 
   def forward(self, z):
@@ -50,7 +50,7 @@ class Decoder_VAE(nn.Module):
     return x
 
 class VAE(nn.Module):
-  def __init__(self, z_dim):
+  def __init__(self, z_dim, input_size, array_number):
     """
     #################################################################
     Variables:
@@ -62,8 +62,8 @@ class VAE(nn.Module):
     #################################################################
     """
     super().__init__()
-    self.encoder = Encoder_VAE(z_dim)
-    self.decoder = Decoder_VAE(z_dim)
+    self.encoder = Encoder_VAE(z_dim, input_size, array_number)
+    self.decoder = Decoder_VAE(z_dim, input_size, array_number)
 
   def forward(self, x_in):
     z, ave, log_dev = self.encoder(x_in)#エンコーダ

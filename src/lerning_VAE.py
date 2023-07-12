@@ -13,9 +13,9 @@ import matplotlib.pyplot as plt
 from VAE import Encoder_VAE, Decoder_VAE, VAE
 from VAE import criterion_VAE as criterion
 
-def Learning_VAE(z_dim, num_epochs, train_loader,val_loader):
+def Learning_VAE(z_dim, num_epochs, train_loader,val_loader, input_size, array_number):
   device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")# specify device
-  model = VAE(z_dim).to(device)#Learning model_AE
+  model = VAE(z_dim, input_size, array_number).to(device)#Learning model_AE
   optimizer = torch.optim.Adam(model.parameters(), lr=0.001)#optimazation function
   scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=[15], gamma=0.1)#scheduler
   
@@ -25,7 +25,7 @@ def Learning_VAE(z_dim, num_epochs, train_loader,val_loader):
     #Train data
     model.train()#select model
     for i, (x, labels) in enumerate(train_loader):
-      input = x.to(device).view(-1, 28*28).to(torch.float32)
+      input = x.to(device).view(-1, input_size*input_size).to(torch.float32)
       output, z, ave, log_dev = model(input)
       #save result
       history_VAE["ave"].append(ave)
@@ -47,7 +47,7 @@ def Learning_VAE(z_dim, num_epochs, train_loader,val_loader):
     model.eval()#select model
     with torch.no_grad():#Memory reduction spell
       for i, (x, labels) in enumerate(val_loader):
-        input = x.to(device).view(-1, 28*28).to(torch.float32)
+        input = x.to(device).view(-1, input_size*input_size).to(torch.float32)
         output, z, ave, log_dev = model(input)
         #save result
         loss = criterion(output, input, ave, log_dev)
