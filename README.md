@@ -1,4 +1,4 @@
-# torch_tutorial_y_-3
+# torch_tutorial_y_i-3
 The repository for M1 tutorial. 
 
 The administers are YANO and NAKAMURA. 
@@ -16,10 +16,18 @@ The administers are YANO and NAKAMURA.
 6. 潜在空間を可視化する．
 7. AEとVAEの潜在空間を比較し，考察する．
 
+
 # Quick Start
+## SSH接続(SSH接続でリモートPCへ接続する場合のみlocal terminalにて実行が必要)
+```
+ ssh -L 63322:localhost:63322 -L 6006:localhost:6006 -L 6007:localhost:6007  <username>@<remotePC IP>
+```
+接続完了後， 環境構築へ
+## nativeの場合
+環境構築へ
 ## 環境設定
 ### 初回
-初めに，githubからリポジトリのクローンを作成する．
+任意のディレクトリにて， githubからリポジトリのクローンを作成する．
 ```
 git clone https://github.com/Issa-N/torch_tutorial_y-i-3.git
 ```
@@ -36,5 +44,10 @@ bash run.sh
 docker exec -it torch_tutorial_y-i　bash
 ```
 一時的に抜ける時は 「controll + P + Q」
+
+## Jupiter notebookを開く時
+```
+jupyter-notebook --ip 0.0.0.0 --port 63322 --allow-root
+```
 
 
