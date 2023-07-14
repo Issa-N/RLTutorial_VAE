@@ -3,9 +3,16 @@ author: Issa Nakamura
 
 # 1.Basic Usage
  初めに，"main.py"を実行する．
+ (実行時、オプションとしてデータセットのミニバッチ数やエポック数を指定する必要がある．オプションの詳細については表1を参照)
 ```
-python3 main.py
+python3 main.py --patch_size 100 --train_rate 0.8 --EPOCH 20 --z_dim 2 --input_size 28 --array_number 300 100
 ```
+表1　main.pyのパラメータ詳細
+|  TH  |  TH  |
+| ---- | ---- |
+|  TD  |  TD  |
+|  TD  |  TD  |
+
 　"main.py"を実行すると，AEとVAEを用いてMNISTのクラスタリング学習を行い，srcフォルダ内に学習モデルと学習結果をファイル形式で保存する．
 
   保存されるファイル形式の詳細は以下に記載する，
