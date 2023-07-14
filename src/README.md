@@ -51,7 +51,7 @@ python3 create_fig.py
 ## 2.2 create_fig.py
 ### 概要)
   "history_AE.pkl"および"history_VAE.pkl"を読み込み、学習損失と潜在空間のグラフ描画を行う．
-### クラス&関数)
+### 関数)
 **def draw_fig()**
 
   　概要:　 "history_AE.pkl"および"history_VAE.pkl"から辞書型変数を読み込む
@@ -83,8 +83,7 @@ python3 create_fig.py
 ## 2.3 dataset.py
 ### 概要)
   MNISTのデータセット生成を行う．
-### クラス&関数)
- 【関数】
+### 関数)
  
  　**Create_dataset(BATCH_SIZE, train_rate)**
  
@@ -144,3 +143,39 @@ python3 create_fig.py
  　**criterion_VAE**
  
 　　 ⇒VAE用の損失関数
+
+ ## 2.6 learning_AE.py
+### 概要)
+  AEの学習を行う．
+### 関数)
+ 
+ 　**Learning_VAE(z_dim, num_epochs, train_loader,val_loader)**
+  
+  　引数:　z_dim　-> 潜在空間の次元数(整数)
+   
+   　　　　num_epochs　->　エポック数(整数)
+
+   　　　　train_loader　-> 訓練データセット
+
+   　　　　val_loader　-> テストデータセット
+
+  
+  　返り値:　history_AE -> 学習結果(辞書型)
+
+ ## 2.7 learning_VAE.py
+### 概要)
+  VAEの学習を行う．
+### 関数)
+ 
+ 　**Learning_VAE(z_dim, num_epochs, train_loader,val_loader)**
+  
+  　引数:　z_dim　-> 潜在空間の次元数(整数)
+   
+   　　　　num_epochs　->　エポック数(整数)
+
+   　　　　train_loader　-> 訓練データセット
+
+   　　　　val_loader　-> テストデータセット
+
+  
+  　返り値:　history_VAE -> 学習結果(辞書型)
