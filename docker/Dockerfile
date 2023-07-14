@@ -22,5 +22,7 @@ RUN pip install notebook==6.5.4 \
                 numpy==1.22.3 \
 		pandas==2.0.3 \
                 scipy==1.11.1 \
-                tensorboard==2.13.0 
+                tensorboard==2.13.0 \
+		ipywidgets==8.0.7 \
+                pytorch_lightning==2.0.5 
 
