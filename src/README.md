@@ -13,6 +13,7 @@ python3 main.py --patch_size 100 --train_rate 0.8 --EPOCH 20 --z_dim 2 --input_s
 |  patch_size  |  パッチ数  |  　正の整数を入力　  |
 |  train_rate  |  訓練データの比率  |  0以上1以下の少数で入力  |
 |  EPOCH  |  エポック数  |  正の整数を入力  |
+|  z_dim  |  潜在空間の次元数  |  今回は課題の設定上、2を指定  |
 |  input_size  |  入力画像の縦幅  |  今回はMNISTを使うので28を指定  |
 |  array_number  |  畳み込み層による削減次元数  |  第1要素>第2要素となるように3以上の正の整数を入力  |
 
