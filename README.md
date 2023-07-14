@@ -66,7 +66,7 @@ jupyter-notebook --ip 0.0.0.0 --port 63322 --allow-root
 
 NNを組んだ後にネットワーク構造を変更し, その挙動を確認したいという場面は往々にして起こりうる事象であるため, プログラム自体もそれに適応した形にするべきである. そこで今回は~/src/main.pyの実行時にAE ,VAE共にハイパラメータやデータセットの分割割合を指定可能なプログラムを作成した. 
 
-下記コマンドにより任意パラメータでの実行が可能となっている. 
+下記コマンドにより任意パラメータでの実行が可能となっている. (パラメータ指定オプションの詳細は、本ページ下部の表1に記載)
 ```
 python3 main.py --patch_size 100 --train_rate 0.8 --EPOCH 20 --z_dim 2 --input_size 28 --array_number 300 100
 ```
@@ -76,3 +76,12 @@ python3 main.py --patch_size 100 --train_rate 0.8 --EPOCH 20 --z_dim 2 --input_s
 python3 create_fig.py
 ```
 最後に，jupyter notebookに戻り"Figure.ipynb"に記載されているセルを実行することで，"create_fig.py"で作図したグラフを確認することができる．
+
+表1　main.pyのパラメータ詳細
+|  パラメータ名  |  意味  |  備考  |
+| ---- | ---- | ---- |
+|  patch_size  |  パッチ数  |  　正の整数を入力　  |
+|  train_rate  |  訓練データの比率  |  0以上1以下の少数で入力  |
+|  EPOCH  |  エポック数  |  正の整数を入力  |
+|  input_size  |  入力画像の縦幅  |  今回はMNISTを使うので28を指定  |
+|  array_number  |  畳み込み層による削減次元数  |  第1要素>第2要素となるように3以上の正の整数を入力  |
