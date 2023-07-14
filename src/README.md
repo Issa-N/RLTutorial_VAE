@@ -8,10 +8,13 @@ author: Issa Nakamura
 python3 main.py --patch_size 100 --train_rate 0.8 --EPOCH 20 --z_dim 2 --input_size 28 --array_number 300 100
 ```
 表1　main.pyのパラメータ詳細
-|  TH  |  TH  |
-| ---- | ---- |
-|  TD  |  TD  |
-|  TD  |  TD  |
+|  パラメータ名  |  意味  |  備考  |
+| ---- | ---- | ---- |
+|  patch_size  |  パッチ数  |  　正の整数を入力　  |
+|  train_rate  |  訓練データの比率  |  0以上1以下の少数で入力  |
+|  EPOCH  |  エポック数  |  正の整数を入力  |
+|  input_size  |  入力画像の縦幅  |  今回はMNISTを使うので28を指定  |
+|  array_number  |  畳み込み層による削減次元数  |  第1要素>第2要素となるように3以上の正の整数を入力  |
 
 　"main.py"を実行すると，AEとVAEを用いてMNISTのクラスタリング学習を行い，srcフォルダ内に学習モデルと学習結果をファイル形式で保存する．
 
