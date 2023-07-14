@@ -37,6 +37,7 @@ cd torch_tutorial_y-i-3/docker
 
 bash build.sh
 bash run.sh
+cd
 ```
 ### 2回目以降
 以下のコマンドで，dockerのコンテナへの接続を行う．
@@ -47,7 +48,31 @@ docker exec -it torch_tutorial_y-i　bash
 
 ## Jupiter notebookを開く時
 ```
+cd
 jupyter-notebook --ip 0.0.0.0 --port 63322 --allow-root
 ```
 
+# 課題ファイルの実行について
+## notebookデータについて
+本課題において一連のVAE, AEの構築及び評価に関しては ~/src/run_AE_VAE.ipynb にて作業を行なった. 
 
+まず[Jupiter notebookを開く時]に記載済みのコマンドを実行し, jupyter notebookが起動することを確認する. 
+
+~/src に移動し 表示されたファイル群の中のrun_AE_VAE.ipynbを選択することで今回の課題成果物を確認できる. 
+
+詳細については当notebookを参照されたい. 
+
+## ハイパーパラメータ指定
+
+NNを組んだ後にネットワーク構造を変更し, その挙動を確認したいという場面は往々にして起こりうる事象であるため, プログラム自体もそれに適応した形にするべきである. そこで今回は~/src/main.pyの実行時にAE ,VAE共にハイパラメータやデータセットの分割割合を指定可能なプログラムを作成した. 
+
+下記コマンドにより任意パラメータでの実行が可能となっている. 
+```
+python3 main.py --patch_size 100 --train_rate 0.8 --EPOCH 20 --z_dim 2 --input_size 28 --array_number 300 100
+```
+
+そして下記コマンドで"create_fig.py"を実行すると，"history_AE.pkl"と"history_VAE.pkl"を読み込み、学習損失と潜在空間のグラフ描画を行い、グラフをpngファイル形式で保存する．
+```
+python3 create_fig.py
+```
+最後に，jupyter notebookに戻り"Figure.ipynb"に記載されているセルを実行することで，"create_fig.py"で作図したグラフを確認することができる．
