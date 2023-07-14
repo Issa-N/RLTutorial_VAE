@@ -70,11 +70,15 @@ NNを組んだ後にネットワーク構造を変更し, その挙動を確認�
 下記コマンドにより任意パラメータでの実行が可能となっている. (パラメータ指定オプションの詳細は、本ページ下部の表1に記載)
 
 ```
+cd
+cd src
 python3 main.py --patch_size 100 --train_rate 0.8 --EPOCH 20 --z_dim 2 --input_size 28 --array_number 300 100
 ```
 
 そして下記コマンドで"create_fig.py"を実行すると，"history_AE.pkl"と"history_VAE.pkl"を読み込み、学習損失と潜在空間のグラフ描画を行い、グラフをpngファイル形式で保存する．
 ```
+cd
+cd src
 python3 create_fig.py
 ```
 最後に，jupyter notebookに戻り"Figure.ipynb"に記載されているセルを実行することで，"create_fig.py"で作図したグラフを確認することができる．
